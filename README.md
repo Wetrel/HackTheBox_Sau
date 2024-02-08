@@ -71,11 +71,37 @@ Teniendo en cuenta esto, compruebo cual es la version del servicio systemctl con
 
 systemctl --version
 
+![Systemctl](/img/SystemCtlVersion.PNG)
 
 
+Realizo una búsqueda y encuentro una vulnerabilidad con la versión que observamos: CVE-2023-26604
+
+Me ha costado bastante entender esta vulnerabilidad, pero dejo por aquí la explicación de lo que yo he entendido.
+
+Para entenderla, primero es importante conocer algunos componentes involucrados:
+
+- systemd: Es un sistema y gestor de servicios para Linux, utilizado para iniciar, detener y gestionar varios servicios y procesos durante el arranque del sistema y mientras el sistema está en funcionamiento.
+  
+- sudo: Es un programa para sistemas Unix y Linux que permite a los usuarios ejecutar programas con los privilegios de seguridad de otro usuario, normalmente el superusuario (root).
+  
+- less: Es un programa de paginación que permite ver (pero no cambiar) el contenido de un archivo de texto una pantalla a la vez. Es utilizado por muchos programas para mostrar texto. Y  permite al usuario invocar un shell o ejecutar comandos directamente desde su interfaz.
+
+- LESSSECURE: Es una variable de entorno que, cuando se establece en 1, hace que less funcione en un "modo seguro", limitando algunas características para evitar posibles vulnerabilidades de seguridad.
+
+La vulnerabilidad surge de la forma en que systemd maneja la ejecución de ciertos comandos (como systemctl status) cuando se invoca a través de sudo . En configuraciones específicas de sudoers que permiten a los usuarios no privilegiados ejecutar systemctl status mediante sudo (este es nuestro caso, como hemos visto al ejecutar el comando sudo -l), si el resultado del comando es demasiado extenso para caber en la pantalla, sudo invocará automáticamente a less para paginar la salida. Aprovechandonos de que less está ejecutado como root, aprovechamos para invocar un shell como root.
+
+Para realizarlo:
+
+- Ejecutamos el comando para el cual tenemos permisos de root: sudo /usr/bin/systemctl status trail.service
+
+- Una vez ejecutado observamos que se ha ejecutado less, y escribimos : !/bin/bash
+
+  ![EscaladoRoot](/img/EscaladoRoot.PNG)
+
+Así conseguimos ejecutar una shell en bash con privilegios de root, una vez dentro nos dirigimos a la carpeta root y  observamos que está la flag de root, finalizando así el desafío.
 
 ## Conclusión
 
-Este documento detalla el proceso seguido para comprometer la máquina Sau en HackTheBox, desde el reconocimiento inicial hasta la post-explotación. Este ejercicio subraya la importancia de la actualización de software y la configuración adecuada de seguridad para prevenir vulnerabilidades.
+Este documento detalla el proceso seguido para comprometer la máquina Sau en HackTheBox, desde el reconocimiento inicial hasta la post-explotación. Este ejercicio subraya la importancia de la actualización de software, ya que como hemos visto, las vulnerabilidades aprovechadas se debían a software desactualizado.
 
 
