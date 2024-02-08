@@ -30,7 +30,7 @@ Los resultados revelaron los siguientes puertos abiertos:
 
 ![Nmap](/img/Nmap.PNG)
 
-El intento de acceso al servidor HTTP en el puerto 80 no cargó, pero el puerto 55555 reveló una aplicación web llamada **Request-baskets**.
+La solicitud al servidor HTTP a través del puerto 80 no obtuvo respuesta., pero el puerto 55555 reveló una aplicación web llamada **Request-baskets**.
 
 ![VentanaPrincipal](/img/Request-baskets.PNG)
 
