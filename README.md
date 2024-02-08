@@ -57,9 +57,22 @@ Utilicé Netcat para escuchar conexiones entrantes en el puerto especificado, lo
 
 ## Post-Explotación
 
-Dentro del directorio home del usuario **puma**, encontré el archivo `user.txt`, que contenía la flag de usuario, marcando el éxito de la fase de post-explotación.
+Dentro del directorio home del usuario **puma**, encontré el archivo `user.txt`, que contenía la flag de usuario.
 
 ![Usuario](/img/Usuario.PNG)
+
+Ahora es el turno de escalar privilegios, la cual desde mi punto de vista es la parte más complicada.
+
+Comienzo ejecutando el comando sudo -l, y observo que el usuario puma tiene permisos para ejecutar un servicio de systemctl como root.
+
+![Sudoers](/img/sudol.PNG)
+
+Teniendo en cuenta esto, compruebo cual es la version del servicio systemctl con el comando:
+
+systemctl --version
+
+
+
 
 ## Conclusión
 
