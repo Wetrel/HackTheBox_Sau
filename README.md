@@ -8,7 +8,7 @@ Este documento proporciona un walkthrough detallado para comprometer la máquina
 - [Reconocimiento](#reconocimiento)
 - [Explotación](#explotación)
   - [Explotación de SSRF en Request-Baskets](#explotación-de-ssrf-en-request-baskets)
-  - [Explotando Maltrail con un Exploit](#explotando-maltrail-con-un-exploit)
+  - [Explotando Maltrail](#explotando-maltrail)
 - [Post-Explotación](#post-explotación)
 - [Conclusión](#conclusión)
 
@@ -37,7 +37,7 @@ El intento de acceso al servidor HTTP en el puerto 80 no cargó, pero el puerto 
 
 **Request-Baskets** es una herramienta para crear puntos finales temporales para inspeccionar solicitudes HTTP. La versión 1.2.1, que estaba en uso, es vulnerable a SSRF (Server Side Request Forgery). Aproveché esta vulnerabilidad para acceder a servicios internos, en particular, al servicio en el puerto 80.
 
-### Explotando Maltrail con un Exploit
+### Explotando Maltrail
 
 El servicio interno redirigido resultó ser **Maltrail**, una aplicación web de monitoreo de tráfico malicioso. Una búsqueda en Google reveló una vulnerabilidad en la versión específica en uso, permitiéndome ejecutar un reverse shell a través de un exploit disponible públicamente: https://github.com/spookier/Maltrail-v0.53-Exploit
 
